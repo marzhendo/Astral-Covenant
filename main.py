@@ -1,3 +1,4 @@
+from utils.title import show_title, intro_cinematic, main_menu
 from systems.save_load import load_game
 from systems.opening import run_opening
 from systems.town import town_loop
@@ -5,20 +6,24 @@ from core.player import Player
 
 
 def main():
+    show_title()
+    intro_cinematic()
 
-    print("=== ASTRAL COVENANT ===")
-    print("1. New Game")
-    print("2. Load Game")
+    choice = main_menu()
 
-    choice = input("> ")
-
+    # LOAD GAME
     if choice == "2":
         player = load_game()
         if player:
             town_loop(player)
-            return
+        return
 
-    # new game
+    # EXIT
+    if choice == "3":
+        print("Farewell, Invoker.")
+        return
+
+    # NEW GAME
     name = input("Enter your name: ")
     player = Player(name)
 

@@ -1,5 +1,31 @@
 import random
+from utils.colors import C
+from utils.ui import bar, show_player_hud, clear
+from core import player
+from systems.items import use_item
 
+# ======================
+# BATTLE LOG BUFFER
+# ======================
+battle_log = []
+LOG_LIMIT = 10
+
+def log(msg):
+    battle_log.append(msg)
+    if len(battle_log) > LOG_LIMIT:
+        battle_log.pop(0)
+
+
+def render_screen(player):
+    clear()
+    print("="*42)
+    show_player_hud(player)
+    print("="*42)
+
+    for line in battle_log:
+        print(line)
+
+    print("="*42)
 
 # ======================
 # DAMAGE CALCULATION
@@ -26,7 +52,7 @@ def calc_damage(attacker, defender):
     if random.random() < 0.15:
         crit_mult = random.uniform(1.8, 2.5)
         dmg = int(dmg * crit_mult)
-        print("⚡ CRITICAL STRIKE!")
+        print(C.YELLOW + "⚡ CRITICAL STRIKE!" + C.RESET)
 
     return dmg
 
@@ -81,7 +107,8 @@ def player_turn(player, enemies):
         print("\n== Your Turn ==")
         print("1. Attack")
         print("2. Command Servant Skill")
-        print("3. Check Status")
+        print("3. Use Item")
+        print("4. Check Status")
 
         choice = input("> ")
 
@@ -90,7 +117,7 @@ def player_turn(player, enemies):
             target = choose_target(enemies)
             dmg = calc_damage(player, target)
             target.hp -= dmg
-            print(f"You hit {target.name} for {dmg} damage.")
+            print(f"{C.GREEN}{player.name}{C.RESET} deals {C.RED}{dmg}{C.RESET} damage to {target.name}")
             return False   # servant skill NOT used
 
         # ----- SERVANT SKILL -----
@@ -122,17 +149,36 @@ def player_turn(player, enemies):
             target.hp -= dmg
 
             print(f"{servant.name} uses {servant.skill_name}!")
-            print(f"{target.name} takes {dmg} damage!")
+            print(f"{C.GREEN}{servant.name}{C.RESET} deals {C.RED}{dmg}{C.RESET} damage to {target.name}")
 
             servant.cooldown = servant.cooldown_max
             return True   # servant skill used
 
-        # ----- STATUS -----
+        # ----- USE ITEM -----
         elif choice == "3":
+
+            if not player.inventory:
+                print("Inventory empty.")
+                continue
+
+            print("\nInventory:")
+            items = [k for k,v in player.inventory.items() if v > 0]
+
+            for i, name in enumerate(items):
+                print(f"{i+1}. {name} x{player.inventory[name]}")
+
+            pick = int(input("> ")) - 1
+
+            if 0 <= pick < len(items):
+                used = use_item(player, items[pick])
+                if used:
+                    return False
+        # ----- STATUS -----
+        elif choice == "4":
             show_combat_status(player, enemies)
 
         else:
-            print("Invalid choice.")
+                print("Invalid choice.")
 
 
 # ======================
@@ -168,7 +214,7 @@ def servant_auto_attack(servant, enemies, player):
         return
 
     target = random.choice(alive)
-    servant.skill_func(servant, player, enemies, calc_damage, try_apply_status)
+    servant.skill_func(servant, player, enemies, calc_damage, print)
 
     print(f"{servant.name} attacks {target.name} for {calc_damage(servant, target)} damage.")
 
@@ -195,7 +241,7 @@ def enemy_turn(player, servant, enemies):
         dmg = calc_damage(e, target)
         target.hp -= dmg
 
-        print(f"{e.name} hits {target.name} for {dmg} damage.")
+        print(f"{C.GREEN}{e.name}{C.RESET} deals {C.RED}{dmg}{C.RESET} damage to {target.name}")
 
 
 # ======================
@@ -228,7 +274,7 @@ def end_turn_updates(player, enemies):
 
 def show_combat_status(player, enemies):
 
-    print("\n--- PLAYER ---")
+    print(C.BOLD + "\n-- PLAYER TURN --" + C.RESET)
     print(f"{player.name} HP:{player.hp}/{player.max_hp} Mana:{player.mana}")
 
     if player.active_servant:
@@ -237,7 +283,7 @@ def show_combat_status(player, enemies):
         print(f"{s.name} HP:{s.hp}/{s.max_hp} Mana:{s.mana}")
         print(f"Cooldown:{s.cooldown}")
 
-    print("\n--- ENEMIES ---")
+    print(C.BOLD + "\n-- ENEMY TURN --" + C.RESET)
     for e in enemies:
         print(f"{e.name} HP:{e.hp}")
 
@@ -261,12 +307,11 @@ def run_battle(player, enemies):
     print("\n=== BATTLE START ===")
 
     while player.is_alive() and any(e.is_alive() for e in enemies):
-        print(f"\n{player.name} HP:{player.hp}/{player.max_hp} Mana:{player.mana}")
-        if player.active_servant:
-            s = player.active_servant
-            print(f"{s.name} HP:{s.hp}/{s.max_hp} Mana:{s.mana}")
+        clear()
+        show_player_hud(player)
 
         # PLAYER TURN
+        print(C.BOLD + "\n-- PLAYER TURN --" + C.RESET)
         servant_skill_used = player_turn(player, enemies)
 
         # remove dead enemies
@@ -279,6 +324,7 @@ def run_battle(player, enemies):
             servant_auto_attack(servant, enemies, player)
 
         # ENEMY TURN
+        print(C.BOLD + "\n-- ENEMY TURN --" + C.RESET)
         enemy_turn(player, servant, enemies)
 
         # END TURN
@@ -289,7 +335,11 @@ def run_battle(player, enemies):
 
         total_exp = sum(e.exp_reward for e in enemies)
 
-        print(f"\nVictory! Gained {total_exp} EXP")
+        print(C.GREEN + f"\nVICTORY! Gained {total_exp} EXP" + C.RESET)
+
+        if random.random() < 0.25:
+            player.inventory["Potion"] = player.inventory.get("Potion",0) + 1
+            print("You found a Potion!")
         
 
         player.gain_exp(total_exp)
@@ -300,7 +350,7 @@ def run_battle(player, enemies):
         print(f"{servant.name} Lv{servant.level} HP:{servant.hp}/{servant.max_hp} Mana:{servant.mana}")
         return True
     else:
-        print("\nDefeat...")
+        print(C.RED + "\nDEFEAT..." + C.RESET)
         return False
 
 def process_status(entity):
@@ -313,13 +363,13 @@ def process_status(entity):
         if name == "Burn":
             dmg = max(1, int(entity.max_hp * 0.05))
             entity.hp -= dmg
-            print(f"{entity.name} takes {dmg} burn damage!")
+            print(C.MAGENTA + f"{entity.name} is burning!" + C.RESET)
 
         # ----- POISON -----
         elif name == "Poison":
             dmg = 3
             entity.hp -= dmg
-            print(f"{entity.name} takes {dmg} poison damage!")
+            print(C.MAGENTA + f"{entity.name} is poisoned!" + C.RESET)
 
         # defense down handled in damage calc
         # stun handled in turn logic

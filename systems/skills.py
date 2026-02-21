@@ -1,8 +1,6 @@
 import random
 
-def artoria_skill(servant, player, enemies, calc_damage, try_apply_status):
-
-    print(f"{servant.name} unleashes EXCALIBUR!")
+def artoria_skill(servant, player, enemies, calc_damage, log):
 
     for e in enemies:
         if not e.is_alive():
@@ -10,13 +8,13 @@ def artoria_skill(servant, player, enemies, calc_damage, try_apply_status):
 
         dmg = int(calc_damage(servant, e) * 1.4)
         e.hp -= dmg
-        print(f"{e.name} takes {dmg} damage!")
+        log(f"{servant.name} unleashes Excalibur! {e.name} takes {dmg}!")
 
         # 30% defense down
-        try_apply_status(e, "Defense Down", 2, 0.3)
-def emiya_skill(servant, player, enemies, calc_damage, try_apply_status):
-
-    print(f"{servant.name} fires Broken Phantasm!")
+        if random.random() < 0.3:
+            e.add_status("Defense Down", 2)
+            log(f"{e.name} is affected by Defense Down!")
+def emiya_skill(servant, player, enemies, calc_damage, log):
 
     hits = random.randint(2,4)
 
@@ -29,23 +27,25 @@ def emiya_skill(servant, player, enemies, calc_damage, try_apply_status):
 
         dmg = int(calc_damage(servant, target) * 0.9)
         target.hp -= dmg
-        print(f"Arrow hits {target.name} for {dmg}!")
+        log(f"{servant.name} fires Broken Phantasm! {target.name} takes {dmg}!")
 
         # 25% burn
-        try_apply_status(target, "Burn", 2, 0.25)
+        if random.random() < 0.25:
+            target.add_status("Burn", 2)
+            log(f"{target.name} is affected by Burn!")
 
-def mash_skill(servant, player, enemies, calc_damage, try_apply_status):
+def mash_skill(servant, player, enemies, calc_damage, log):
 
-    print(f"{servant.name} raises Lord Chaldeas!")
+    log(f"{servant.name} raises Lord Chaldeas!")
 
     # reduce damage via Astral Mark removal / defensive buff simulation
     if player.has_status("Defense Down"):
         player.status_effects = [
             s for s in player.status_effects if s["name"] != "Defense Down"
         ]
-        print("Defense restored!")
+        log("Defense restored!")
 
     heal = int(player.max_hp * 0.25)
     player.hp = min(player.max_hp, player.hp + heal)
 
-    print(f"{player.name} recovers {heal} HP!")
+    log(f"{player.name} recovers {heal} HP!")

@@ -11,6 +11,10 @@ class Player(Entity):
         self.servants = []
         self.active_servant = None
         self.gold = 0
+        self.inventory = { 
+                            "Potion": 3,
+                            "Mana Potion": 2
+                        }
 
 
     def gain_exp(self, amount):

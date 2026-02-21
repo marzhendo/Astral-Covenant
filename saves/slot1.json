@@ -1,0 +1,30 @@
+{
+    "name": "Ainchase",
+    "hp": 80,
+    "max_hp": 80,
+    "attack": 12,
+    "defense": 8,
+    "mana": 30,
+    "max_mana": 30,
+    "level": 1,
+    "exp": 89,
+    "exp_to_next": 100,
+    "gold": 0,
+    "active_servant": "Artoria Pendragon",
+    "servants": [
+        {
+            "name": "Artoria Pendragon",
+            "hp": 85,
+            "max_hp": 85,
+            "attack": 16,
+            "defense": 10,
+            "mana": 32,
+            "max_mana": 32,
+            "bond": 1,
+            "level": 1,
+            "exp": 70,
+            "exp_to_next": 80,
+            "cooldown": 3
+        }
+    ]
+}
