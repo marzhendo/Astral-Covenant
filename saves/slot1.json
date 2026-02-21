@@ -1,5 +1,5 @@
 {
-    "name": "Ainchase",
+    "name": "Zen",
     "hp": 80,
     "max_hp": 80,
     "attack": 12,
@@ -7,24 +7,24 @@
     "mana": 30,
     "max_mana": 30,
     "level": 1,
-    "exp": 89,
+    "exp": 25,
     "exp_to_next": 100,
     "gold": 0,
-    "active_servant": "Artoria Pendragon",
+    "active_servant": "Emiya",
     "servants": [
         {
-            "name": "Artoria Pendragon",
-            "hp": 85,
-            "max_hp": 85,
-            "attack": 16,
-            "defense": 10,
-            "mana": 32,
-            "max_mana": 32,
+            "name": "Emiya",
+            "hp": 75,
+            "max_hp": 75,
+            "attack": 17,
+            "defense": 8,
+            "mana": 36,
+            "max_mana": 36,
             "bond": 1,
             "level": 1,
-            "exp": 70,
+            "exp": 20,
             "exp_to_next": 80,
-            "cooldown": 3
+            "cooldown": 0
         }
     ]
 }

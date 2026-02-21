@@ -1,4 +1,4 @@
-from utils.title import show_title, intro_cinematic, main_menu
+from ui.title import show_title, intro_cinematic, main_menu
 from systems.save_load import load_game
 from systems.opening import run_opening
 from systems.town import town_loop

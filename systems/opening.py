@@ -1,7 +1,7 @@
 from core.enemy import Enemy
 from systems.battle import run_battle
 from data.servants import create_artoria, create_emiya, create_mash
-
+from ui.summon import summon_animation
 
 def prologue_scene():
     print("\nThe sky fractures...")
@@ -56,7 +56,7 @@ def choose_servant():
         else:
             print("Invalid choice.")
 
-    print(f"\nCOVENANT FORMED WITH {servant.name}!\n")
+    summon_animation(servant.name)
     return servant
 
 def restore_after_summon(player, servant):
