@@ -1,22 +1,8 @@
 # Astral Covenant
 
-<p align="center"><pre>
-   █████╗ ███████╗████████╗██████╗  █████╗ ██╗     
-    ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██║     
-    ███████║███████╗   ██║   ██████╔╝███████║██║     
-    ██╔══██║╚════██║   ██║   ██╔══██╗██╔══██║██║     
-    ██║  ██║███████║   ██║   ██║  ██║██║  ██║███████╗
-    ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝
-
-██████╗  ██████╗ ██╗   ██╗███████╗███╗   ██╗ █████╗ ███╗   ██╗████████╗
-██╔════╝ ██╔═══██╗██║   ██║██╔════╝████╗  ██║██╔══██╗████╗  ██║╚══██╔══╝
-██║      ██║   ██║██║   ██║█████╗  ██╔██╗ ██║███████║██╔██╗ ██║   ██║   
-██║      ██║   ██║╚██╗ ██╔╝██╔══╝  ██║╚██╗██║██╔══██║██║╚██╗██║   ██║   
-╚██████╗ ╚██████╔╝ ╚████╔╝ ███████╗██║ ╚████║██║  ██║██║ ╚████║   ██║   
- ╚═════╝  ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝
-
-             
-</pre></p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/marzhendo/Astral-Covenant/main/header.png" alt="Astral Covenant Header"/>
+</p>
 
 <p align="center">
   <i>"Di antara retakan realitas dan debu bintang yang memudar, sebuah perjanjian kuno menunggu untuk dihidupkan kembali. Terikat oleh takdir, sang pengembara harus menenun kekuatan astral untuk memulihkan keseimbangan yang hancur."</i>
