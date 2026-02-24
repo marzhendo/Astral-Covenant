@@ -20,7 +20,7 @@ def main():
 
     # EXIT
     if choice == "3":
-        print("Farewell, Invoker.")
+        print("Farewell, May we meet in the distant future.")
         return
 
     # NEW GAME
