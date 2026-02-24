@@ -1,8 +1,7 @@
-# Astral-Covenant
+# Astral Covenant
 
-<p align="center">
-  <pre>
-     █████╗ ███████╗████████╗██████╗  █████╗ ██╗     
+<p align="center"><pre>
+   █████╗ ███████╗████████╗██████╗  █████╗ ██╗     
     ██╔══██╗██╔════╝╚══██╔══╝██╔══██╗██╔══██╗██║     
     ███████║███████╗   ██║   ██████╔╝███████║██║     
     ██╔══██║╚════██║   ██║   ██╔══██╗██╔══██║██║     
@@ -16,15 +15,17 @@
 ╚██████╗ ╚██████╔╝ ╚████╔╝ ███████╗██║ ╚████║██║  ██║██║ ╚████║   ██║   
  ╚═════╝  ╚═════╝   ╚═══╝  ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝
 
-  </pre>
-</p>
+             
+</pre></p>
 
 <p align="center">
   <i>"Di antara retakan realitas dan debu bintang yang memudar, sebuah perjanjian kuno menunggu untuk dihidupkan kembali. Terikat oleh takdir, sang pengembara harus menenun kekuatan astral untuk memulihkan keseimbangan yang hancur."</i>
 </p>
 
----
 
+
+
+---
 ## 🌌 Overview
 
 **Astral-Covenant** adalah sebuah RPG (Role-Playing Game) berbasis teks yang dikembangkan dengan Python. Game ini menggabungkan mekanisme strategi battle yang mendalam, sistem manajemen Servant yang unik, serta eksplorasi dunia fantasi yang misterius. Pemain berperan sebagai _Covenant Binder_ — seseorang yang terpilih untuk mengikat ikatan dengan para roh heroik dari alam Astral.
